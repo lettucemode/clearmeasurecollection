@@ -24,7 +24,7 @@ namespace ClearMeasureLibrary
 
         public void Reset()
         {
-            this.Position = -1;
+            this.Position = 0;
         }
 
         public void Dispose()

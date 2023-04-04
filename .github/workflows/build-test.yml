@@ -1,0 +1,21 @@
+name: ClearMeasure build & test
+
+on:
+  push:
+    branches: [main] 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use .NET 6
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build solution
+      run: dotnet build
+      working-directory: src
+    - name: Execute unit tests
+      run: dotnet test
+      working-directory: src
