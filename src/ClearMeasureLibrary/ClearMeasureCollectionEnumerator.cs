@@ -19,7 +19,7 @@ namespace ClearMeasureLibrary
         public bool MoveNext()
         {
             this.Position++;
-            return this.Position < this.Collection.Length;
+            return this.Position <= this.Collection.Length;
         }
 
         public void Reset()
