@@ -1,20 +1,17 @@
 ﻿using System.Collections;
+using System.Text;
 
 namespace ClearMeasureLibrary
 {
     public class ClearMeasureCollection: IEnumerable
     {
         private int UpperBound { get; }
-        private string Name1 { get; }
-        private string Name2 { get; }
-        private string ComboName { get; }
+        private Dictionary<int, string> NumbersToNames { get; }
 
-        public ClearMeasureCollection(int upperBound, string name1, string name2)
+        public ClearMeasureCollection(int upperBound, Dictionary<int, string> numbersToNames)
         {
             this.UpperBound = upperBound;
-            this.Name1 = name1;
-            this.Name2 = name2;
-            this.ComboName = $"{Name1}{Name2}";
+            this.NumbersToNames = numbersToNames;
         }
 
         public string this[int number] => GetNameForNumber(number);
@@ -22,10 +19,19 @@ namespace ClearMeasureLibrary
 
         private string GetNameForNumber(int number)
         {
-            if (number % 3 == 0 && number % 5 == 0) return this.ComboName;
-            if (number % 3 == 0) return this.Name1;
-            if (number % 5 == 0) return this.Name2;
-            return number.ToString();
+            var builder = new StringBuilder();
+            foreach (var entry in this.NumbersToNames)
+            {
+                if (number % entry.Key == 0)
+                {
+                    builder.Append(entry.Value);
+                }
+            }
+            if (builder.Length == 0)
+            {
+                builder.Append(number);
+            }
+            return builder.ToString();
         }
 
         public IEnumerator GetEnumerator()
